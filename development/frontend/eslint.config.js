@@ -1,12 +1,12 @@
 // @ts-check
-const eslint = require("@eslint/js");
-const tseslint = require("typescript-eslint");
-const angular = require("angular-eslint");
-const importPlugin = require("eslint-plugin-import");
+const eslint = require('@eslint/js')
+const tseslint = require('typescript-eslint')
+const angular = require('angular-eslint')
+const importPlugin = require('eslint-plugin-import')
 
 module.exports = tseslint.config(
   {
-    files: ["**/*.ts"],
+    files: ['**/*.ts'],
     extends: [
       eslint.configs.recommended,
       ...tseslint.configs.recommended,
@@ -16,57 +16,54 @@ module.exports = tseslint.config(
     processor: angular.processInlineTemplates,
     plugins: { import: importPlugin },
     rules: {
-      "@angular-eslint/prefer-standalone": "off",
-      "@angular-eslint/directive-selector": [
-        "error",
+      '@angular-eslint/prefer-standalone': 'off',
+      '@angular-eslint/directive-selector': [
+        'error',
         {
-          type: "attribute",
-          prefix: "app",
-          style: "camelCase",
+          type: 'attribute',
+          prefix: 'app',
+          style: 'camelCase',
         },
       ],
-      "@angular-eslint/component-selector": [
-        "error",
+      '@angular-eslint/component-selector': [
+        'error',
         {
-          type: "element",
-          prefix: "app",
-          style: "kebab-case",
+          type: 'element',
+          prefix: 'app',
+          style: 'kebab-case',
         },
       ],
-      "import/order": [
-        "error",
+      'import/order': [
+        'error',
         {
           groups: [
-            "builtin",
-            "external",
-            "internal",
-            ["parent", "sibling"],
-            "index",
-            "object",
-            "type",
+            'builtin',
+            'external',
+            'internal',
+            ['parent', 'sibling'],
+            'index',
+            'object',
+            'type',
           ],
           pathGroups: [
             {
-              pattern: "@angular/**",
-              group: "external",
-              position: "before",
+              pattern: '@angular/**',
+              group: 'external',
+              position: 'before',
             },
           ],
           alphabetize: {
-            order: "asc",
+            order: 'asc',
             caseInsensitive: true,
           },
-          "newlines-between": "always",
+          'newlines-between': 'always',
         },
       ],
     },
   },
   {
-    files: ["**/*.html"],
-    extends: [
-      ...angular.configs.templateRecommended,
-      ...angular.configs.templateAccessibility,
-    ],
+    files: ['**/*.html'],
+    extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
     rules: {},
   }
-);
+)

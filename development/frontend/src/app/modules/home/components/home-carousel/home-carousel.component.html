@@ -1,0 +1,51 @@
+<div class="var-container">
+  <div class="var-slide">
+    @for (image of images; track $index) {
+      <div class="var-item" [style]="getBackgroundImage(image)">
+        <div class="var-content">
+          <div class="var-name">{{ image.name }}</div>
+          <div class="var-desc">
+            {{ image.desc }}
+          </div>
+          <button type="button">See more</button>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="var-btn">
+    <button type="button" (click)="onPrev()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+        />
+      </svg>
+    </button>
+
+    <button type="button" (click)="onNext()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+        />
+      </svg>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="relative">
+  <input
+    [type]="type()"
+    [id]="id()"
+    [placeholder]="placeholder()"
+    [formControl]="control()"
+    [ngClass]="{ disabled: control().disabled }"
+    class="w-full text-base text-yellow-600 border-b border-gray-300 py-1 focus:border-b focus:border-yellow-700 transition-colors focus:outline-none peer bg-inherit"
+  />
+  <label
+    [for]="id()"
+    class="absolute -top-5 text-base left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-yellow-700 peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+  >
+    {{ label() }}
+  </label>
+</div>

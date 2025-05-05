@@ -1,0 +1,124 @@
+<div class="flex flex-col space-y-4 w-full bg-white rounded-lg shadow-md">
+  <div class="bg-gradient-to-r from-amber-600 to-gray-800 rounded-t-lg px-6 py-8">
+    <h1 class="text-3xl font-bold text-white">ลงทะเบียนเพื่อเสนอขายคอนโดมิเนียม</h1>
+    <p class="text-sm text-amber-100 mt-2">เราพร้อมรับซื้อคอนโดของคุณในราคาที่ดีที่สุด</p>
+  </div>
+
+  <form [formGroup]="form" class="px-6 py-6 flex flex-col space-y-6">
+    <div class="grid grid-cols-2 gap-6">
+      <app-form-input
+        [type]="'text'"
+        [id]="'fullName'"
+        [label]="'ชื่อ - สกุล'"
+        [control]="form.controls.fullName"
+      >
+      </app-form-input>
+
+      <app-form-input
+        [type]="'tel'"
+        [id]="'phone-number'"
+        [label]="'เบอร์โทรศัพท์'"
+        [control]="form.controls.phoneNumber"
+      >
+      </app-form-input>
+
+      <app-form-input
+        [type]="'email'"
+        [id]="'email'"
+        [label]="'อีเมล'"
+        [control]="form.controls.email"
+      >
+      </app-form-input>
+
+      <app-form-input
+        [type]="'text'"
+        [id]="'line'"
+        [label]="'Line ID'"
+        [control]="form.controls.lineId"
+      >
+      </app-form-input>
+    </div>
+
+    <app-form-input
+      [type]="'text'"
+      [id]="'address'"
+      [label]="'ที่อยู่'"
+      [control]="form.controls.address"
+    >
+    </app-form-input>
+
+    <app-address-autocomplete
+      [id]="'choose'"
+      [label]="'เลือกแขวง - เขต - จังหวัด - รหัสไปรษณีย์'"
+      (selected)="onSelectAddress($event)"
+    ></app-address-autocomplete>
+
+    <div class="grid grid-cols-2 gap-6">
+      <app-form-input
+        [type]="'text'"
+        [id]="'subDistrict'"
+        [label]="'แขวง'"
+        [control]="form.controls.subDistrict"
+      >
+      </app-form-input>
+
+      <app-form-input
+        [type]="'text'"
+        [id]="'district'"
+        [label]="'เขต'"
+        [control]="form.controls.district"
+      >
+      </app-form-input>
+
+      <app-form-input
+        [type]="'text'"
+        [id]="'province'"
+        [label]="'จังหวัด'"
+        [control]="form.controls.province"
+      >
+      </app-form-input>
+
+      <app-form-input
+        [type]="'text'"
+        [id]="'postalCode'"
+        [label]="'รหัสไปรษณีย์'"
+        [control]="form.controls.postalCode"
+      >
+      </app-form-input>
+    </div>
+
+    <div class="flex items-center space-x-2">
+      <input
+        type="checkbox"
+        id="terms"
+        formControlName="terms"
+        class="h-4 w-4 text-amber-600 focus:ring-amber-500 border-gray-300 rounded cursor-pointer"
+      />
+      <label for="terms" class="text-sm text-gray-600">
+        ฉันยอมรับ
+        <button type="button" (click)="openTermsModal()" class="text-amber-600 hover:underline">
+          เงื่อนไขการใช้บริการ
+        </button>
+        และ
+        <button type="button" (click)="openPrivacyModal()" class="text-amber-600 hover:underline">
+          นโยบายความเป็นส่วนตัว
+        </button>
+      </label>
+    </div>
+
+    <app-button
+      [type]="'submit'"
+      [size]="'lg'"
+      [isLoading]="isLoading"
+      class="w-full md:w-auto self-end"
+    >
+      ส่งข้อมูลคอนโด
+    </app-button>
+  </form>
+</div>
+
+<app-terms-modal [isVisible]="showTermsModal" (isClose)="closeTermsModal()"></app-terms-modal>
+<app-privacy-modal
+  [isVisible]="showPrivacyModal"
+  (isClose)="closePrivacyModal()"
+></app-privacy-modal>

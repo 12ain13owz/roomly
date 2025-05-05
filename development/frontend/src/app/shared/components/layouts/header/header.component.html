@@ -1,0 +1,29 @@
+<header class="fixed top-0 left-0 w-full z-10">
+  <div class="container mx-auto max-w-4xl py-4 px-6">
+    <div
+      class="flex justify-between items-center bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg rounded-lg px-6 py-3"
+    >
+      <a
+        [routerLink]="navbars()[0].href"
+        class="text-2xl font-bold text-yellow-900 drop-shadow-md"
+        >{{ title() }}</a
+      >
+
+      <nav>
+        <ul class="flex gap-6">
+          @for (navbar of navbars(); track $index) {
+            <li>
+              <a
+                [routerLink]="navbar.href"
+                routerLinkActive="active-link"
+                [routerLinkActiveOptions]="{ exact: navbar.href === '/' }"
+                [class]="navbar.class"
+                >{{ navbar.text }}</a
+              >
+            </li>
+          }
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

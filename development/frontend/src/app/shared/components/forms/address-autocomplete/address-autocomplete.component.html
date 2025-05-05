@@ -1,0 +1,50 @@
+<div class="relative">
+  <!-- Input -->
+  <input
+    type="text"
+    [id]="id()"
+    [placeholder]="placeholder()"
+    [value]="query()"
+    (input)="onInput($event)"
+    (focus)="showDropdown.set(true)"
+    (blur)="onBlur()"
+    class="w-full text-lg border-b border-gray-300 py-1 pr-10 focus:border-b focus:border-yellow-700 transition-colors focus:outline-none peer bg-inherit"
+  />
+  <!-- Select Icon -->
+  <svg
+    class="absolute right-2 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+  </svg>
+  <!-- Label -->
+  <label
+    [for]="id()"
+    class="absolute -top-4 text-base left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-yellow-700 peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+  >
+    {{ label() }}
+  </label>
+  <!-- Dropdown -->
+  @if (showDropdown() && filteredOptions().length > 0) {
+    <ul
+      class="absolute z-10 w-full bg-white border border-gray-200 rounded-md shadow-lg mt-1 max-h-60 overflow-auto"
+    >
+      @for (option of filteredOptions(); track $index) {
+        <li
+          (mousedown)="selectOption(option)"
+          class="px-4 py-2 hover:bg-yellow-100 cursor-pointer text-gray-700"
+        >
+          <div class="flex gap-2 address-parts">
+            <span>{{ option.subDistrict }}</span>
+            <span>{{ option.district }}</span>
+            <span>{{ option.province }}</span>
+            <span>({{ option.postalCode }})</span>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</div>

@@ -1,0 +1,33 @@
+a {
+  position: relative;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #78350f; /* tailwind stone-900 */
+  transition: width 0.3s ease;
+}
+
+a.active-link::after {
+  width: 100%;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+/* สำหรับเอฟเฟกต์จากขวาไปซ้าย สำหรับลิงก์ที่ 2 และ 3 */
+li:nth-child(2) a::after,
+li:nth-child(3) a::after {
+  left: auto;
+  right: 0;
+}
+
+.active-link {
+  color: #78350f !important;
+}
