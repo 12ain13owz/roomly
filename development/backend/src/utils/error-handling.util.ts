@@ -1,6 +1,9 @@
 import { Request } from 'express'
 
-import { ErrorContext, ErrorSeverity } from '@/types/error.type'
+import { severityToLogLevel } from '@/constants/severity.const'
+import { ErrorContext, ErrorSeverity, LogLevel } from '@/types/error.type'
+
+import { log } from './logger.util'
 
 export class AppError extends Error {
   constructor(
@@ -108,7 +111,34 @@ export class ErrorLogger {
     additionalContext?: Partial<ErrorContext>
   ) {
     const errorLog = this.formatErrorLog(error, additionalContext)
-    console.error(JSON.stringify(errorLog, null, 2))
+    const level: LogLevel =
+      error instanceof AppError && error.severity
+        ? (severityToLogLevel[error.severity] as LogLevel) || 'error'
+        : 'error'
+
+    switch (level) {
+      case 'fatal':
+        log.fatal(errorLog)
+        break
+      case 'error':
+        log.error(errorLog)
+        break
+      case 'warn':
+        log.warn(errorLog)
+        break
+      case 'info':
+        log.info(errorLog)
+        break
+      case 'debug':
+        log.debug(errorLog)
+        break
+      case 'trace':
+        log.trace(errorLog)
+        break
+      default:
+        log.error(errorLog)
+    }
+
     return errorLog
   }
 }

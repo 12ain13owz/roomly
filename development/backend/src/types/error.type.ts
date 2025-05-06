@@ -1,18 +1,18 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export type RequestContext = {
   method: string
   url: string
   baseUrl: string
   path: string
-  params?: Record<string, any>
-  query?: Record<string, any>
-  body?: Record<string, any>
+  params?: Record<string, unknown>
+  query?: Record<string, unknown>
+  body?: Record<string, unknown>
 }
 
 export type ErrorContext = {
   functionName: string
   requestContext?: RequestContext
-  additionalData?: Record<string, any>
+  additionalData?: Record<string, unknown>
 }
 
 export type ErrorSeverity = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'
+export type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal'

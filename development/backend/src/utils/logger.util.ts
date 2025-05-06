@@ -1,14 +1,13 @@
 import dayjs from 'dayjs'
-import logger from 'pino'
+import pino from 'pino'
 
 const level = 'debug' // fatal, error, warn, info, debug, trace
-export const log = logger({
+export const log = pino({
   transport: {
     target: 'pino-pretty',
+    options: { colorize: true },
   },
   level,
-  base: {
-    pid: false,
-  },
+  base: { pid: false },
   timestamp: () => `,"time":"${dayjs().format()}"`,
 })
