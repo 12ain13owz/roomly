@@ -1,5 +1,13 @@
 <section class="flex min-h-screen bg-cover pt-[6rem]" [class]="backgroundImage">
   <div class="py-4 px-6 max-w-4xl w-full mx-auto">
-    <app-purchase-form></app-purchase-form>
+    @if (success()) {
+      <app-purchase-success></app-purchase-success>
+    } @else {
+      <app-purchase-form
+        [isLoading]="isLoading"
+        [errorMessage]="errorMessage"
+        (formSubmit)="onSubmit($event)"
+      ></app-purchase-form>
+    }
   </div>
 </section>

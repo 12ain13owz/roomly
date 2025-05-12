@@ -3,9 +3,13 @@
     [type]="type()"
     [id]="id()"
     [placeholder]="placeholder()"
-    [formControl]="control()"
-    [ngClass]="{ disabled: control().disabled }"
+    [ngClass]="{
+      readonly: readonly(),
+      invalid: control().invalid && control().touched,
+    }"
+    [readOnly]="readonly()"
     class="w-full text-base text-yellow-600 border-b border-gray-300 py-1 focus:border-b focus:border-yellow-700 transition-colors focus:outline-none peer bg-inherit"
+    [formControl]="control()"
   />
   <label
     [for]="id()"

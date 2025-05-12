@@ -13,5 +13,6 @@ export class FormInputComponent {
   id = input('')
   label = input('')
   placeholder = input('')
+  readonly = input(false)
   control = input.required<FormControl<string | null>>()
 }
