@@ -4,4 +4,7 @@ export type AppConfig = {
   channelAccessToken: string
   channelSecret: string
   groupId: string
+  siteKey: string
+  secretKey: string
+  turnstileUrl: string
 }
