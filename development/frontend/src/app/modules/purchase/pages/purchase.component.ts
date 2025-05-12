@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http'
 import { Component, inject, signal } from '@angular/core'
 import { catchError, finalize, throwError } from 'rxjs'
 
@@ -30,8 +31,9 @@ export class PurchaseComponent {
     this.condoService
       .register(form, this.token)
       .pipe(
-        catchError((error) => {
-          this.errorMessage = error.message
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 0) this.errorMessage = 'Internal Server error'
+          else this.errorMessage = error.message
           return throwError(() => error)
         }),
         finalize(() => (this.isLoading = false))
