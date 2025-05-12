@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: 'http://localhost:3000/api',
+  apiUrl: 'https://roomly.vercel.app/api',
   turnstileSiteKey: '0x4AAAAAABcqWEGDMCY2SBu0',
 }
