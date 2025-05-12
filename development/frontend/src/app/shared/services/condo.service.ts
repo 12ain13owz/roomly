@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 
+import { environment } from '../../../environments/environment'
 import { CondoFormValue, CondoPayload, CondoResponse } from '../interfaces/condo.interface'
 
 @Injectable({
@@ -9,7 +10,7 @@ import { CondoFormValue, CondoPayload, CondoResponse } from '../interfaces/condo
 })
 export class CondoService {
   private http = inject(HttpClient)
-  private apiUrl = 'http://localhost:3000/api/condo'
+  private apiUrl = environment.apiUrl + '/condo'
 
   private mapToPayload(formValue: CondoFormValue): CondoPayload {
     return {
@@ -26,8 +27,10 @@ export class CondoService {
     }
   }
 
-  register(formValue: CondoFormValue): Observable<CondoResponse> {
+  register(formValue: CondoFormValue, token: string): Observable<CondoResponse> {
+    const url = this.apiUrl + '/register'
+    const headers = new HttpHeaders({ 'x-cloudflare-token': token })
     const payload = this.mapToPayload(formValue)
-    return this.http.post<CondoResponse>(this.apiUrl + '/register', payload)
+    return this.http.post<CondoResponse>(url, payload, { headers })
   }
 }

@@ -1,7 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from '@angular/common'
-import { Component, inject, input, output } from '@angular/core'
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  input,
+  output,
+  PLATFORM_ID,
+  viewChild,
+} from '@angular/core'
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 
+import { environment } from '../../../../../environments/environment'
 import {
   Address,
   AddressAutocompleteComponent,
@@ -26,8 +37,11 @@ import { CondoFormControl } from '../../../../shared/interfaces/condo.interface'
   templateUrl: './purchase-form.component.html',
   styleUrl: './purchase-form.component.scss',
 })
-export class PurchaseFormComponent {
+export class PurchaseFormComponent implements AfterViewInit {
+  private platformId = inject(PLATFORM_ID)
   private fb = inject(FormBuilder)
+  readonly siteKey = environment.turnstileSiteKey
+
   form = this.initForm()
   showTermsModal = false
   showPrivacyModal = false
@@ -35,6 +49,22 @@ export class PurchaseFormComponent {
   isLoading = input(false)
   errorMessage = input('')
   formSubmit = output<typeof this.form.value>()
+  turnstileToken = output<string>()
+  turnstileContainer = viewChild<ElementRef<any>>('turnstileContainer')
+
+  ngAfterViewInit(): void {
+    if (this.platformId !== 'browser') return
+    this.renderTurnstile()
+  }
+
+  private renderTurnstile() {
+    if (!window.turnstile) return
+    window.turnstile.render(this.turnstileContainer()!.nativeElement, {
+      sitekey: this.siteKey,
+      callback: (token: string) => this.turnstileToken.emit(token),
+      theme: 'light',
+    })
+  }
 
   private initForm(): FormGroup<CondoFormControl> {
     return this.fb.nonNullable.group({
@@ -52,10 +82,8 @@ export class PurchaseFormComponent {
   }
 
   onSubmit() {
-    this.form.enable()
     if (this.form.invalid) {
       this.form.markAllAsTouched()
-
       return
     }
 

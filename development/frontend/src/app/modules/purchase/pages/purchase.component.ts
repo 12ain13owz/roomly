@@ -17,6 +17,7 @@ export class PurchaseComponent {
 
   isLoading = false
   errorMessage = ''
+  token = ''
   backgroundImage =
     'bg-[url(https://images.unsplash.com/photo-1602595688238-9fffe12d5af3?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)]'
 
@@ -27,7 +28,7 @@ export class PurchaseComponent {
     this.errorMessage = ''
 
     this.condoService
-      .register(form)
+      .register(form, this.token)
       .pipe(
         catchError((error) => {
           this.errorMessage = error.message
@@ -36,5 +37,9 @@ export class PurchaseComponent {
         finalize(() => (this.isLoading = false))
       )
       .subscribe(() => this.success.set(true))
+  }
+
+  onTurnstileToken(token: string) {
+    this.token = token
   }
 }

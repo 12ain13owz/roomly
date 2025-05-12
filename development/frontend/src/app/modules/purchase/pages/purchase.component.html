@@ -6,6 +6,7 @@
       <app-purchase-form
         [isLoading]="isLoading"
         [errorMessage]="errorMessage"
+        (turnstileToken)="onTurnstileToken($event)"
         (formSubmit)="onSubmit($event)"
       ></app-purchase-form>
     }
