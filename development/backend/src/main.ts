@@ -12,8 +12,9 @@ import { logger } from './utils/logger.util'
 
 const app = express()
 const port = getConfig('port')
+const whiteList = getConfig('whiteList').split(',')
 const corsOptions: CorsOptions = {
-  origin: '*',
+  origin: whiteList,
   optionsSuccessStatus: 200,
 }
 

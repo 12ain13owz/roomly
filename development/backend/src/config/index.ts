@@ -14,6 +14,7 @@ const envSchema = z.object({
     .pipe(z.number().int().positive())
     .default('3000'),
   NODE_ENV: z.enum(['development', 'production']).default('development'),
+  WHITE_LIST: z.string(),
   LINE_CHANNEL_ACCESS_TOKEN: z.string(),
   LINE_CHANNEL_SECRET: z.string(),
   LINE_GROUP_ID: z.string(),
@@ -29,6 +30,7 @@ const env = envSchema.parse(process.env)
 const config: Readonly<AppConfig> = Object.freeze({
   port: env.PORT,
   node_env: env.NODE_ENV,
+  whiteList: env.WHITE_LIST,
   channelAccessToken: env.LINE_CHANNEL_ACCESS_TOKEN,
   channelSecret: env.LINE_CHANNEL_SECRET,
   groupId: env.LINE_GROUP_ID,
