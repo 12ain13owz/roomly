@@ -3,6 +3,7 @@
   width: 100%;
   height: 100dvh;
   background: #f5f5f5;
+  overflow: hidden;
 }
 
 .var-container .var-slide .var-item {
@@ -15,6 +16,7 @@
   background-size: cover;
   display: inline-block;
   transition: 0.5s;
+  overflow: hidden;
 }
 
 .var-slide .var-item:nth-child(1),
@@ -165,5 +167,19 @@
 @media screen and (min-width: 1536px) {
   .var-item .var-content {
     left: 500px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .var-slide .var-item:nth-child(4) {
+    opacity: 0;
+  }
+
+  .var-slide .var-item:nth-child(5) {
+    opacity: 0;
+  }
+
+  .var-slide .var-item:nth-child(n + 6) {
+    opacity: 0;
   }
 }
