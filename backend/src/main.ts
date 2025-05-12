@@ -1,6 +1,4 @@
 import cors, { CorsOptions } from 'cors'
-import dotenv from 'dotenv'
-dotenv.config()
 import express from 'express'
 import helmet from 'helmet'
 import morgan from 'morgan'

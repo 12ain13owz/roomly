@@ -1,10 +1,14 @@
 /* eslint-disable no-process-env */
 /* eslint-disable security/detect-object-injection */
 
+import dotenv from 'dotenv'
 import { z } from 'zod'
 
 import { AppConfig } from '@/types/config.type'
 
+const nodeEnv =
+  process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development'
+dotenv.config({ path: nodeEnv })
 // Define environment variable schema with zod
 const envSchema = z.object({
   PORT: z

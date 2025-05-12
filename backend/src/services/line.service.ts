@@ -1,6 +1,4 @@
 import { messagingApi } from '@line/bot-sdk'
-import dotenv from 'dotenv'
-dotenv.config()
 
 import { getConfig } from '@/config'
 import { CondoType } from '@/schemas/condo.schema'

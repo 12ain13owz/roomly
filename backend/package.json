@@ -1,11 +1,11 @@
 {
-  "name": "nodes-template",
+  "name": "roomly-backend",
   "version": "1.0.0",
   "description": "",
   "main": "main.ts",
   "scripts": {
-    "start": "node --env-file=.env.production dist/main.js",
-    "dev": "tsx watch --env-file=.env.development src/main",
+    "start": "cross-env NODE_ENV=production node dist/main.js",
+    "dev": "cross-env NODE_ENV=development tsx watch src/main",
     "build": "tsc && tsc-alias",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
@@ -23,6 +23,7 @@
     "@types/node": "^22.15.3",
     "@typescript-eslint/eslint-plugin": "^8.32.0",
     "@typescript-eslint/parser": "^8.32.0",
+    "cross-env": "^7.0.3",
     "eslint": "^9.26.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-no-unsanitized": "^4.1.2",

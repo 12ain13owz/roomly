@@ -1,5 +1,3 @@
-import dotenv from 'dotenv'
-dotenv.config()
 import { NextFunction, Request, Response } from 'express'
 
 import { getConfig } from '@/config'
