@@ -8,8 +8,8 @@
     // Path และ Root settings
     "rootDir": "./src", // ระบุ directory ต้นทางของ source code
     "outDir": "./dist", // ระบุ directory ปลายทางสำหรับไฟล์ที่ compile แล้ว
-    "baseUrl": "./", // กำหนดจุดเริ่มต้นสำหรับ module resolution
-    "paths": { "@/*": ["src/*"] }, // กำหนด alias (@/) เพื่อให้ import โค้ดจาก src
+    "baseUrl": "src", // กำหนดจุดเริ่มต้นสำหรับ module resolution
+    "paths": { "@/*": ["*"] }, // กำหนด alias (@/) เพื่อให้ import โค้ดจาก src
 
     // Strict Type-Checking
     "strict": true, // เปิดใช้งาน strict type-checking ทั้งหมด

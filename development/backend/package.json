@@ -4,12 +4,11 @@
   "description": "",
   "main": "main.ts",
   "scripts": {
-    "start": "node dist/src/main.js",
-    "dev": "tsx watch --env-file=.env src/main",
-    "build": "tsc",
+    "start": "node --env-file=.env.production dist/main.js",
+    "dev": "tsx watch --env-file=.env.development src/main",
+    "build": "tsc && tsc-alias",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "test": "tsx watch --env-file=.env server.js"
+    "lint:fix": "eslint . --fix"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +29,7 @@
     "eslint-plugin-security": "^3.0.1",
     "globals": "^16.0.0",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.16",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
