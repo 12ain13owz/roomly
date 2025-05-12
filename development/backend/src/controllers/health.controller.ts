@@ -13,9 +13,15 @@ function healthSuccess(_req: Request, res: Response, next: NextFunction) {
 function healthError(_req: Request, _res: Response, next: NextFunction) {
   try {
     throw new AppError('Test error function', 400, 'LOW', {
-      functionName: 'Health Test Error',
+      functionName: 'healthError',
       additionalData: {
-        userId: 'Test Health User ID',
+        userId: 1,
+        name: 'John Doe',
+        active: false,
+        items: ['1', 2, true, null, undefined, new Date()],
+        description: null,
+        email: undefined,
+        createdAt: new Date(),
       },
     })
   } catch (error) {

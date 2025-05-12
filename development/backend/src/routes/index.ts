@@ -1,12 +1,11 @@
-import { NextFunction, Request, Response, Router } from 'express'
+import { Router } from 'express'
 
-import health from './health.routes'
+import condoRoutes from './condo.routes'
+import healthRoutes from './health.routes'
 
 const router = Router()
 
-router.get('/', (_req: Request, res: Response, _next: NextFunction) => {
-  res.json({ message: 'Hello World!' })
-})
-router.use('/health', health)
+router.use('/health', healthRoutes)
+router.use('/api/condo', condoRoutes)
 
 export default router

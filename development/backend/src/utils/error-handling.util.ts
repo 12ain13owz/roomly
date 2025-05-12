@@ -1,9 +1,9 @@
 import { Request } from 'express'
 
-import { severityToLogLevel } from '@/constants/severity.const'
+import { severityToLogLevel } from '@/constants/logger.const'
 import { ErrorContext, ErrorSeverity, LogLevel } from '@/types/error.type'
 
-import { log } from './logger.util'
+import { logger } from './logger.util'
 
 export class AppError extends Error {
   constructor(
@@ -29,6 +29,66 @@ export class AppError extends Error {
     }
 
     return this
+  }
+}
+
+export class ErrorLogger {
+  private static formatErrorLog(
+    error: AppError | Error,
+    additionalData?: Record<string, unknown>
+  ) {
+    const baseLog = {
+      name: error.name,
+      message: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString(),
+    }
+
+    if (error instanceof AppError)
+      return {
+        ...baseLog,
+        status: error.status,
+        severity: error.severity,
+        ...error.context,
+        ...additionalData,
+      }
+
+    return {
+      ...baseLog,
+      status: 500,
+      severity: 'HIGH',
+      ...additionalData,
+    }
+  }
+
+  static log(
+    error: AppError | Error,
+    additionalContext?: Partial<ErrorContext>
+  ) {
+    const errorLog = this.formatErrorLog(error, additionalContext)
+    const level: LogLevel =
+      error instanceof AppError && error.severity
+        ? (severityToLogLevel[error.severity] as LogLevel) || 'error'
+        : 'error'
+
+    switch (level) {
+      case 'info':
+        logger.info([errorLog])
+        break
+      case 'warn':
+        logger.warn([errorLog])
+        break
+      case 'error':
+        logger.error([errorLog])
+        break
+      case 'crit':
+        logger.crit([errorLog])
+        break
+      default:
+        logger.error([errorLog])
+    }
+
+    return errorLog
   }
 }
 
@@ -75,70 +135,5 @@ export class ErrorFactory {
       functionName,
       additionalData,
     })
-  }
-}
-
-export class ErrorLogger {
-  private static formatErrorLog(
-    error: AppError | Error,
-    additionalData?: Record<string, unknown>
-  ) {
-    const baseLog = {
-      timestamp: new Date().toISOString(),
-      name: error.name,
-      message: error.message,
-    }
-
-    if (error instanceof AppError)
-      return {
-        ...baseLog,
-        status: error.status,
-        severity: error.severity,
-        ...error.context,
-        ...additionalData,
-      }
-
-    return {
-      ...baseLog,
-      status: 500,
-      severity: 'HIGH',
-      ...additionalData,
-    }
-  }
-
-  static log(
-    error: AppError | Error,
-    additionalContext?: Partial<ErrorContext>
-  ) {
-    const errorLog = this.formatErrorLog(error, additionalContext)
-    const level: LogLevel =
-      error instanceof AppError && error.severity
-        ? (severityToLogLevel[error.severity] as LogLevel) || 'error'
-        : 'error'
-
-    switch (level) {
-      case 'fatal':
-        log.fatal(errorLog)
-        break
-      case 'error':
-        log.error(errorLog)
-        break
-      case 'warn':
-        log.warn(errorLog)
-        break
-      case 'info':
-        log.info(errorLog)
-        break
-      case 'debug':
-        log.debug(errorLog)
-        break
-      case 'trace':
-        log.trace(errorLog)
-        break
-      default:
-        log.error(errorLog)
-    }
-
-    return errorLog
   }
 }

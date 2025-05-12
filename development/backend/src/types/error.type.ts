@@ -15,4 +15,4 @@ export type ErrorContext = {
 }
 
 export type ErrorSeverity = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'
-export type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal'
+export type LogLevel = 'info' | 'warn' | 'error' | 'crit'

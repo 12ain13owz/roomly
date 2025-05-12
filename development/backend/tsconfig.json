@@ -44,7 +44,8 @@
     "emitDecoratorMetadata": true // emit metadata สำหรับ decorators
   },
   "include": [
-    "src/**/*.ts" // รวมไฟล์ทั้งหมดใน src directory
+    "src/**/*.ts", // รวมไฟล์ทั้งหมดใน src directory
+    "index.ts"
   ],
   "exclude": [
     "node_modules", // ไม่รวม node_modules
